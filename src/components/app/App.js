@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Logout from '../logout/Logout';
@@ -9,6 +9,7 @@ import Reservation from '../reservation/Reservation';
 import Rooms from '../rooms/Rooms';
 import Room from '../room/Room';
 import ProtectedRoute from '../protected-route/ProtectedRoute';
+import NotFound from '../not-found/NotFound';
 
 const App = props => {
   const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ const App = props => {
       <ProtectedRoute exact path="/rooms/create" loggedIn={user} render={() => <Room user={user} />} />
       <ProtectedRoute exact path="/rooms/edit/:id" loggedIn={user} render={() => <Room user={user} />} />
       <ProtectedRoute exact path="/logout" loggedIn={user} render={() => <Logout setUser={setUser} />} />
-      <ProtectedRoute path="*" user />
+      <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>
 }

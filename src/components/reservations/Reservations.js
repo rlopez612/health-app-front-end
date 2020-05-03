@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Reservations.module.css';
 import Button from '../button/Button';
+import Modal from '../modal/Modal';
 import Card from '../card/Card';
 
 const dummyReservs = [
@@ -42,6 +43,7 @@ const dummyRooms = [
 const Reservations = props => {
   const [reservations, setReservations] = useState(dummyReservs);
   const [rooms, setRooms] = useState(dummyRooms);
+  const [apiError, setApiError] = useState(false);
 
   // useEffect(() => {
   //   try {
@@ -76,6 +78,7 @@ const Reservations = props => {
       <Link to='/reservations/create'><Button color="Primary">Create</Button></Link>
     </div>
 
+    {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
     <div className={style.Container}>
       {reservationDisplays}
     </div>

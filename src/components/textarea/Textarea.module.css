@@ -1,0 +1,38 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.Error {
+  color: #1b3e77;
+  border: 2px solid red;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 30px;
+  margin: 4px;
+  width: 250px;
+}
+
+.ErrMsg {
+  color: red;
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.Textarea {
+  color: #1b3e77;
+  border: 1px solid grey;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+  height: 60px;
+  margin: 4px;
+  width: 250px;
+}
+
+.Label {
+  color: #1b3e77;
+  font-size: 16px;
+  margin: 4px;
+}

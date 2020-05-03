@@ -3,83 +3,59 @@ import { Link } from 'react-router-dom';
 import style from './Rooms.module.css';
 import Button from '../button/Button';
 import Card from '../card/Card';
+import Modal from '../modal/Modal';
 
-const dummyReservs = [
-    {
-        id: 1,
-        user: 'manger',
-        guestEmail: 'email@email',
-        roomType: 1,
-        checkInDate: '03/04/20',
-        numberOfNights: 3
-    },
-    {
-        id: 2,
-        user: 'employee',
-        guestEmail: 'email@email',
-        roomType: 2,
-        checkInDate: '03/04/20',
-        numberOfNights: 5
-    }
-];
 const dummyRooms = [
-    {
-        id: 1,
-        roomType: 'Queen',
-        description: 'desc',
-        rate: 200,
-        active: true
-    },
-    {
-        id: 2,
-        roomType: 'King',
-        description: 'desc',
-        rate: 300,
-        active: false
-    }
+  {
+    id: 1,
+    roomType: 'Queen',
+    description: 'desc',
+    rate: 200,
+    active: true
+  },
+  {
+    id: 2,
+    roomType: 'King',
+    description: 'desc',
+    rate: 300,
+    active: false
+  }
 ]
 
-const Reservations = props => {
-    const [reservations, setReservations] = useState(dummyReservs);
-    const [rooms, setRooms] = useState(dummyRooms);
+const Rooms = props => {
+  const [apiError, setApiError] = useState(false);
+  const [rooms, setRooms] = useState(dummyRooms);
 
-    // useEffect(() => {
-    //   try {
+  // useEffect(() => {
+  //   try {
 
-    //   }
-    // }, [])
+  //   }
+  // }, [])
 
-    const handleDelete = id => {
-        console.log('delete', id)
-    }
+  const roomDisplays = rooms.map(room => {
+    return <Card key={room.id}>
+      <p className={style.Text}><strong>Room Type: </strong>{room.roomType}</p>
+      <p className={style.Text}><strong>Description: </strong>{room.description}</p>
+      <p className={style.Text}><strong>Rate: </strong>{room.rate}</p>
+      <p className={style.Text}><strong>Status: </strong>{room.active ? 'Active' : 'Inactive'}</p>
 
-    const reservationDisplays = reservations.map(reservation => {
-        const room = rooms.find(room => room.id === reservation.roomType);
+      <div className={style.Container}>
+        <Link className={style.Link} to={`/rooms/edit/${room.id}`}><Button color="Primary">Edit</Button></Link>
+      </div>
+    </Card>
+  });
 
-        return <Card key={reservation.id}>
-            <p className={style.Text}><strong>Guest: </strong>{reservation.guestEmail}</p>
-            <p className={style.Text}><strong>Check-in Date: </strong>{reservation.checkInDate}</p>
-            <p className={style.Text}><strong>Number of Nights: </strong>{reservation.numberOfNights}</p>
-            <p className={style.Text}><strong>Room Type: </strong>{room.roomType}</p>
-            <p className={style.Text}><strong>Total: </strong>{room.rate * reservation.numberOfNights}</p>
-
-            <div className={style.Container}>
-                <Link className={style.Link} to={`/reservations/edit/${reservation.id}`}><Button color="Primary">Edit</Button></Link>
-                <Button color="Warn" onClick={() => handleDelete(reservation.id)}>Delete</Button>
-            </div>
-        </Card>
-    });
-
-    return <div>
-        <div className={style.Header}>
-            <h1>Reservations</h1>
-            <Link to='/reservations/create'><Button color="Primary">Create</Button></Link>
-        </div>
-
-        <div className={style.Container}>
-            {reservationDisplays}
-        </div>
+  return <div>
+    <div className={style.Header}>
+      <h1>Rooms</h1>
+      <Link to='/rooms/create'><Button color="Primary">Create</Button></Link>
     </div>
+
+    {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
+    <div className={style.Container}>
+      {roomDisplays}
+    </div>
+  </div>
 }
 
-export default Reservations;
+export default Rooms;
