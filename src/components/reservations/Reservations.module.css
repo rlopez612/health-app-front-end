@@ -1,0 +1,15 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Link {
+  color: white;
+  font-weight: bold;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+.Text {
+  margin: 0;
+}

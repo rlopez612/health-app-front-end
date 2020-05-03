@@ -1,0 +1,20 @@
+.Button {
+  border: none;
+  border-radius: 4px;
+  box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 4px;
+  padding: 8px;
+  width: 80px;
+}
+
+.Primary {
+  background-color: #1b3e77;
+}
+
+.Warn {
+  background-color: #f78d34;
+}

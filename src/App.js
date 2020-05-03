@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Logout from './components/logout/Logout';
 import NavBar from './components/nav-bar/NavBar';
+import Login from './components/login/Login';
+import Reservations from './components/reservations/Reservations';
+import ProtectedRoute from './components/protected-route/ProtectedRoute';
 
 const App = props => {
-  const [user, setUser] = useState({ token: null, role: null });
-
-  useEffect(() =>
-    setUser({
-      token: sessionStorage.getItem('token'),
-      role: sessionStorage.getItem('role')
-    }), []
-  );
+  const [user, setUser] = useState(null);
 
   return <BrowserRouter>
-    <NavBar loggedIn={user.token} role={user.role} />
+    <NavBar user={user} />
     <Switch>
-      <Route exact path="/">
-      </Route>
-      <Route exact path="/logout" component={Logout}>
-      </Route>
-      <Route path="*"></Route>
+      <Route exact path="/" render={() => <Login setUser={setUser} />} />
+      <ProtectedRoute exact path="/reservations" user={user} render={() => <Reservations user={user} />} />
+      <ProtectedRoute exact path="/logout" user={user} render={() => <Logout setUser={setUser} />} />
+      <ProtectedRoute path="*" user={user} />
     </Switch>
   </BrowserRouter>
 }

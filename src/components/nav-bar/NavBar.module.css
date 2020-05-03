@@ -1,0 +1,26 @@
+.Active {
+  color: #f78d34 !important;
+}
+
+.Link {
+  color: white;
+  font-weight: bold;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+.Logo {
+  margin: 0 8px;
+}
+
+.NavBar {
+  align-items: center;
+  background-color: #1b3e77;
+  box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  color: white;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  padding: 4px;
+  margin-bottom: 8px;
+}
