@@ -4,6 +4,16 @@
   justify-content: flex-start;
 }
 
+.Dropdown {
+  color: #1b3e77;
+  border: 1px solid grey;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 30px;
+  margin: 4px;
+  width: 250px;
+}
+
 .Error {
   color: #1b3e77;
   border: 2px solid red;
@@ -18,16 +28,6 @@
   color: red;
   font-size: 14px;
   margin-left: 4px;
-}
-
-.Input {
-  color: #1b3e77;
-  border: 1px solid grey;
-  border-radius: 4px;
-  font-size: 16px;
-  height: 30px;
-  margin: 4px;
-  width: 250px;
 }
 
 .Label {

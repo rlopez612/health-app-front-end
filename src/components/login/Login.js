@@ -15,7 +15,7 @@ const Login = props => {
     history.push('/reservations');
   }
 
-  return <Form title="Login" onSubmit={handleFormSubmit}>
+  return <Form title="Login" action="Login" onSubmit={handleFormSubmit}>
     <Input type="email" label="Email" />
     <Input type="password" label="Password" />
   </Form>

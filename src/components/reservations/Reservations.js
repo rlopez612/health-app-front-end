@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Reservations.module.css';
 import Button from '../button/Button';
@@ -40,8 +40,14 @@ const dummyRooms = [
 ]
 
 const Reservations = props => {
-  const [reservations] = useState(dummyReservs);
-  const [rooms] = useState(dummyRooms);
+  const [reservations, setReservations] = useState(dummyReservs);
+  const [rooms, setRooms] = useState(dummyRooms);
+
+  // useEffect(() => {
+  //   try {
+
+  //   }
+  // }, [])
 
   const handleDelete = id => {
     console.log('delete', id)
@@ -58,19 +64,18 @@ const Reservations = props => {
       <p className={style.Text}><strong>Total: </strong>{room.rate * reservation.numberOfNights}</p>
 
       <div className={style.Container}>
-        <Button color="Primary">
-          <Link className={style.Link} to={`/reservations/edit/${reservation.id}`}>Edit</Link>
-        </Button>
+        <Link className={style.Link} to={`/reservations/edit/${reservation.id}`}><Button color="Primary">Edit</Button></Link>
         <Button color="Warn" onClick={() => handleDelete(reservation.id)}>Delete</Button>
       </div>
     </Card>
   });
 
   return <div>
-    <h1>Reservations</h1>
-    <Button color="Primary">
-      <Link className={style.Link} to='/reservations/create'>Create</Link>
-    </Button>
+    <div className={style.Header}>
+      <h1>Reservations</h1>
+      <Link to='/reservations/create'><Button color="Primary">Create</Button></Link>
+    </div>
+
     <div className={style.Container}>
       {reservationDisplays}
     </div>
