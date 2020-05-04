@@ -48,7 +48,7 @@ const dummyRooms = [
   }
 ];
 
-const Reservation = props => {
+const Reservation = (props) => {
   const { user } = props;
   const history = useHistory();
   const params = useParams();
@@ -57,7 +57,7 @@ const Reservation = props => {
 
   const [reservation, setReservation] = useState({
     id: null,
-    // user: user.user,
+    user: user.user,
     guestEmail: '',
     roomType: '',
     checkInDate: '',
@@ -68,24 +68,24 @@ const Reservation = props => {
     guestEmail: false,
     roomType: false,
     checkInDate: false,
-    numberOfNights: false,
+    numberOfNights: false
   });
 
   useEffect(() => {
     if (params.id) {
-      const res = dummyReservs.find(res => res.id === params.id);
+      const res = dummyReservs.find((res) => res.id === params.id);
       setReservation(res);
     }
   }, [params.id]);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const errors = {
       guestEmail: false,
       roomType: false,
       checkInDate: false,
-      numberOfNights: false,
-    }
+      numberOfNights: false
+    };
     let invalidForm = false;
 
     if (!isValidEmail(reservation.guestEmail)) {
@@ -108,20 +108,19 @@ const Reservation = props => {
     if (!invalidForm) {
       console.log('submit');
       history.push('/reservations');
-
     } else {
       setErrors(errors);
     }
-  }
+  };
 
   const handleChange = (event, input) => {
     if (errors[input]) {
-      setErrors({ ...errors, [input]: false })
+      setErrors({ ...errors, [input]: false });
     }
     setReservation({ ...reservation, [input]: event.target.value });
-  }
+  };
 
-  const activeRoomTypes = dummyRooms.filter(room => room.active)
+  const activeRoomTypes = dummyRooms.filter((room) => room.active);
 
   return (
     <>
@@ -167,6 +166,6 @@ const Reservation = props => {
       </Form>
     </>
   );
-}
+};
 
 export default Reservation;

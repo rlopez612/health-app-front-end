@@ -5,6 +5,7 @@ import Input from '../input/Input';
 import Modal from '../modal/Modal';
 import { isValidNumber } from '../../utils/validation';
 import Textarea from '../textarea/Textarea';
+import Checkbox from '../checkbox/Checkbox';
 
 const dummyRooms = [
   {
@@ -30,7 +31,7 @@ const dummyRooms = [
   }
 ];
 
-const Room = props => {
+const Room = (props) => {
   const { user } = props;
   const history = useHistory();
   const params = useParams();
@@ -52,17 +53,18 @@ const Room = props => {
 
   useEffect(() => {
     if (params.id) {
-      const room = dummyRooms.find(room => room.id === params.id);
+      const room = dummyRooms.find((room) => room.id === params.id);
       setRoom(room);
     }
   }, [params.id]);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(room);
     const errors = {
       roomType: false,
       rate: false
-    }
+    };
     let invalidForm = false;
 
     if (room.roomType.length < 3) {
@@ -77,21 +79,24 @@ const Room = props => {
     if (!invalidForm) {
       console.log('submit');
       history.push('/rooms');
-
     } else {
       setErrors(errors);
     }
-  }
+  };
 
   const handleChange = (event, input) => {
     if (errors[input]) {
-      setErrors({ ...errors, [input]: false })
+      setErrors({ ...errors, [input]: false });
     }
     setRoom({ ...room, [input]: event.target.value });
-  }
+  };
+
+  const handleCheck = (event) => {
+    setRoom({ ...room, active: event.target.checked });
+  };
 
   if (user.role !== 'manager') {
-    return <Redirect to="/reservations" />
+    return <Redirect to="/reservations" />;
   }
 
   return (
@@ -124,9 +129,15 @@ const Room = props => {
           value={room.rate}
           onChange={(event) => handleChange(event, 'rate')}
         />
+        <Checkbox
+          label="Active"
+          type="checkbox"
+          checked={room.active}
+          onChange={handleCheck}
+        />
       </Form>
     </>
   );
-}
+};
 
 export default Room;

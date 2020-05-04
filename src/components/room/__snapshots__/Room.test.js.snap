@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Room renders correctly 1`] = `
+<form
+  className="Form"
+  onSubmit={[Function]}
+>
+  <h1
+    className="Title"
+  >
+    Edit Room
+  </h1>
+  <div
+    className="Container"
+  >
+    <label
+      className="Label"
+    >
+      Room Type
+    </label>
+    <input
+      className="Input"
+      error={false}
+      label="Room Type"
+      message="Must be at least 3 characters"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="Container"
+  >
+    <label
+      className="Label"
+    >
+      Description
+    </label>
+    <textarea
+      className="Textarea"
+      cols="20"
+      label="Description"
+      onChange={[Function]}
+      rows="2"
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="Container"
+  >
+    <label
+      className="Label"
+    >
+      Rate
+    </label>
+    <input
+      className="Input"
+      error={false}
+      label="Rate"
+      message="Must be number greater than zero"
+      onChange={[Function]}
+      type="number"
+      value=""
+    />
+  </div>
+  <div
+    className="Container"
+  >
+    <label
+      className="Label"
+    >
+      Active
+    </label>
+    <input
+      checked={true}
+      className="Checkbox"
+      label="Active"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </div>
+  <button
+    className="Button Primary"
+    color="Primary"
+    type="Submit"
+  >
+    Update
+  </button>
+</form>
+`;
