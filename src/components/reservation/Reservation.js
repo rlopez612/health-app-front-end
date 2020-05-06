@@ -4,85 +4,107 @@ import Form from '../form/Form';
 import Input from '../input/Input';
 import Dropdown from '../dropdown/Dropdown';
 import Modal from '../modal/Modal';
+import Spinner from '../spinner/Spinner';
 import { isValidEmail, isValidDate, isValidNumber } from '../../utils/validation';
+import HttpHelper from '../../utils/HttpHelper';
 
-const dummyReservs = [
-  {
-    id: '1',
-    user: 'manger',
-    guestEmail: 'email@email.com',
-    roomType: '1',
-    checkInDate: '03-04-2020',
-    numberOfNights: 3
-  },
-  {
-    id: '2',
-    user: 'employee',
-    guestEmail: 'email@email.com',
-    roomType: '2',
-    checkInDate: '03-04-2020',
-    numberOfNights: 5
-  }
-];
-const dummyRooms = [
-  {
-    id: '1',
-    roomType: 'Queen',
-    description: 'desc',
-    rate: 200,
-    active: false
-  },
-  {
-    id: '2',
-    roomType: 'King',
-    description: 'desc',
-    rate: 300,
-    active: true
-  },
-  {
-    id: '3',
-    roomType: 'Double Queen',
-    description: 'desc',
-    rate: 300,
-    active: true
-  }
-];
-
-const Reservation = (props) => {
-  const { user } = props;
+/**
+ * @name
+ * @description
+ * @param {*} props
+ * @return
+ */
+const Reservation = ({ user }) => {
+  // Hooks to work with URL
   const history = useHistory();
   const params = useParams();
 
+  // state for api errors and loading
+  const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
 
+  // state for room-types and reservations
+  const [rooms, setRooms] = useState([]);
   const [reservation, setReservation] = useState({
     id: null,
-    user: user.user,
+    user: user.email,
     guestEmail: '',
-    roomType: '',
+    roomTypeId: '',
     checkInDate: '',
     numberOfNights: ''
   });
 
-  const [errors, setErrors] = useState({
+  // state to track input errors
+  const [inputErrors, setInputErrors] = useState({
     guestEmail: false,
-    roomType: false,
+    roomTypeId: false,
     checkInDate: false,
     numberOfNights: false
   });
 
   useEffect(() => {
+    // if there is an id in the URL, we are in edit mode
     if (params.id) {
-      const res = dummyReservs.find((res) => res.id === params.id);
-      setReservation(res);
+      setLoading(true);
+      // we need both the room-types and reservations so we can map the room-types names
+      // with the reservations roomTypeId for display purposes
+      Promise.all([HttpHelper(`/reservations/${params.id}`, 'GET'), HttpHelper('/room-types', 'GET')])
+        .then(([reservationRes, roomsRes]) => {
+          // once both api calls have resolved successfully check if both are 2xx responses
+          if (reservationRes.ok && roomsRes.ok) {
+            return Promise.all([reservationRes.json(), roomsRes.json()]);
+          }
+          // if either response is not a 2xx, throw error to move into catch block
+          throw new Error('Something went wrong');
+        })
+        .then(([reservationData, roomsData]) => {
+          // set data for room-types and reservations
+          setLoading(false);
+          setReservation(reservationData);
+          setRooms(roomsData);
+        })
+        .catch(() => {
+          // set errors
+          setLoading(false);
+          setApiError(true);
+        });
+    } else {
+      // if there is not an id in the URL, we are in create mode
+      setLoading(true);
+      // we only need to make one call here since we aren't fetching an existing reservation
+      HttpHelper('/room-types', 'GET')
+        .then((response) => {
+          // if response is of 2xx
+          if (response.ok) {
+            return response.json();
+          }
+          // if response is not a 2xx, throw error to move into catch block
+          throw new Error('Something went wrong');
+        })
+        .then((data) => {
+          setLoading(false);
+          setRooms(data);
+        })
+        .catch(() => {
+          setLoading(false);
+          setApiError(true);
+        });
     }
   }, [params.id]);
 
+  /**
+ * @name handleSubmit
+ * @description
+ * @param {*} props
+ * @return
+ */
   const handleSubmit = (event) => {
+    // need to prevent default submit behavior of form
     event.preventDefault();
+    // object to track which inputs have errors
     const errors = {
       guestEmail: false,
-      roomType: false,
+      roomTypeId: false,
       checkInDate: false,
       numberOfNights: false
     };
@@ -100,30 +122,55 @@ const Reservation = (props) => {
       errors.numberOfNights = true;
       invalidForm = true;
     }
-    if (reservation.roomType === '') {
-      errors.roomType = true;
+    if (reservation.roomTypeId === '') {
+      errors.roomTypeId = true;
       invalidForm = true;
     }
 
     if (!invalidForm) {
-      console.log('submit');
-      history.push('/reservations');
+      // method and route depend on if we are editing or creating
+      const method = params.id ? 'PUT' : 'POST';
+      const route = params.id ? `/reservations/${params.id}` : '/reservations';
+      setLoading(true);
+      HttpHelper(route, method, reservation)
+        .then((response) => {
+          setLoading(false);
+          if (response.ok) {
+            // on success, redirect to reservations page
+            history.push('/reservations');
+          } else {
+            // throw error to move into catch block
+            throw new Error('oops something went wrong');
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          setApiError(true);
+        });
     } else {
-      setErrors(errors);
+      setInputErrors(errors);
     }
   };
 
+  /**
+ * @name handleChange
+ * @description update input state on change
+ * @param {event} event
+ * @param {string} input
+ */
   const handleChange = (event, input) => {
-    if (errors[input]) {
-      setErrors({ ...errors, [input]: false });
+    if (inputErrors[input]) {
+      setInputErrors({ ...inputErrors, [input]: false });
     }
     setReservation({ ...reservation, [input]: event.target.value });
   };
 
-  const activeRoomTypes = dummyRooms.filter((room) => room.active);
+  // filter inactive rooms for Dropdown
+  const activeRoomTypes = rooms.filter((room) => room.active);
 
   return (
     <>
+      {loading && <Spinner />}
       {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
 
       <Form
@@ -134,7 +181,7 @@ const Reservation = (props) => {
         <Input
           label="Guest Email"
           type="email"
-          error={errors.guestEmail}
+          error={inputErrors.guestEmail}
           message="Must be a valid email"
           value={reservation.guestEmail}
           onChange={(event) => handleChange(event, 'guestEmail')}
@@ -142,7 +189,7 @@ const Reservation = (props) => {
         <Input
           label="Check-in Date"
           type="text"
-          error={errors.checkInDate}
+          error={inputErrors.checkInDate}
           message="Date must be mm-dd-yyyy"
           value={reservation.checkInDate}
           onChange={(event) => handleChange(event, 'checkInDate')}
@@ -150,18 +197,18 @@ const Reservation = (props) => {
         <Input
           label="Number of Nights"
           type="number"
-          error={errors.numberOfNights}
+          error={inputErrors.numberOfNights}
           message="Must be number greater than zero"
           value={reservation.numberOfNights}
           onChange={(event) => handleChange(event, 'numberOfNights')}
         />
         <Dropdown
           label="Room Type"
-          error={errors.roomType}
+          error={inputErrors.name}
           message="Must select a room type"
           options={activeRoomTypes}
-          value={reservation.roomType}
-          onChange={(event) => handleChange(event, 'roomType')}
+          value={reservation.roomTypeId}
+          onChange={(event) => handleChange(event, 'roomTypeId')}
         />
       </Form>
     </>

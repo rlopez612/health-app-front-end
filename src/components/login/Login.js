@@ -1,30 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Form from '../form/Form';
 import Input from '../input/Input';
+import Spinner from '../spinner/Spinner';
+import HttpHelper from '../../utils/HttpHelper';
 
-const managerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZW1haWxAZW1haWwuY29tIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.GHygfygr8SVvlnI055DfBR7qedDrwxkL3yKfPMat5uM';
-const employeeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZW1haWxAZW1haWwuY29tIiwicm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNTE2MjM5MDIyfQ.04VMt3lfTAMSwfS1vGPuh_93dV-rpntVNQOOtBgzf3M';
+/**
+ * @name Login
+ * @description  contains login form and redirect
+ * @param {*} props setUser
+ * @return component
+ */
 
-const Login = (props) => {
+const Login = (setUser) => {
   const history = useHistory();
-  const { setUser } = props;
+  // form inputs state
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  // invalid login credentials state
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+  // loading state for showing spinner
+  const [loading, setLoading] = useState(false);
 
+  /**
+   * @name handleChange
+   * @description updates input state on change and resets credentials errors
+   * @param {event} event change event
+   * @param {string} input changed input
+   */
+  const handleChange = (event, input) => {
+    // reset credential error when user reattempts
+    if (invalidCredentials) {
+      setInvalidCredentials(false);
+    }
+    setCredentials({ ...credentials, [input]: event.target.value });
+  };
+
+  /**
+ * @name handleFormSubmit
+ * @description submits credentials to api, redirects if successful, shows error otherwise
+ * @param {event} event submit event
+ */
   const handleFormSubmit = (event) => {
+    // need to prevent default submit behavior of form
     event.preventDefault();
-    console.log('call API');
+    // toggle spinner while api call in progress
+    setLoading(true);
 
-    sessionStorage.setItem('token', managerToken);
-    const user = JSON.parse(atob(managerToken.split('.')[1]));
-    setUser({ email: user.user, role: user.role });
-    history.push('/reservations');
+    // post to login on api
+    HttpHelper('/login', 'POST', credentials)
+      .then((response) => {
+        // if status code is 2xx
+        if (response.ok) {
+          return response.json();
+        }
+        // otherwise throw error and move into catch block
+        throw new Error('Invalid email or password');
+      })
+      .then((data) => {
+        // toggle spinner since api call is done
+        setLoading(false);
+        // set token in storage
+        sessionStorage.setItem('token', data.token);
+        // parse JWT for payload containing the user email and role
+        const user = JSON.parse(atob(data.token.split('.')[1]));
+        // update user state in App component to show a valid user
+        setUser({ email: user.sub, role: user.roles });
+        // redirect to reservations page
+        history.push('/reservations');
+      })
+      .catch(() => {
+        setLoading(false);
+        // show error message for fail
+        setInvalidCredentials(true);
+      });
   };
 
   return (
-    <Form title="Login" action="Login" onSubmit={handleFormSubmit}>
-      <Input type="email" label="Email" />
-      <Input type="password" label="Password" />
-    </Form>
+    <>
+      {loading && <Spinner />}
+
+      <Form title="Login" action="Login" onSubmit={handleFormSubmit}>
+        {invalidCredentials && <p>Invalid email or password</p>}
+
+        <Input type="email" label="Email" onChange={(event) => handleChange(event, 'email')} />
+
+        <Input type="password" label="Password" onChange={(event) => handleChange(event, 'password')} />
+      </Form>
+    </>
   );
 };
 

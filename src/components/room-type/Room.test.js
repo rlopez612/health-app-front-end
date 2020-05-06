@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import Room from './Room';
+import Room from './RoomType';
 
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({
