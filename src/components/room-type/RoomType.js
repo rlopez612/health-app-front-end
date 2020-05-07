@@ -154,9 +154,9 @@ const RoomType = ({ user }) => {
         <Input
           label="Room Type"
           type="text"
-          error={inputErrors.roomType}
+          error={inputErrors.name}
           message="Must be at least 3 characters"
-          value={room.roomType}
+          value={room.name}
           onChange={(event) => handleChange(event, 'name')}
         />
         <Textarea

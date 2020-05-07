@@ -24,13 +24,48 @@ const App = () => {
 
       <Switch>
         <Route exact path="/" render={() => <Login setUser={setUser} />} />
-        <ProtectedRoute exact path="/reservations" loggedIn={user} render={() => <Reservations user={user} />} />
-        <ProtectedRoute exact path="/reservations/create" loggedIn={user} render={() => <Reservation user={user} />} />
-        <ProtectedRoute exact path="/reservations/edit/:id" loggedIn={user} render={() => <Reservation user={user} />} />
-        <ProtectedRoute exact path="/room-types" loggedIn={user} render={() => <RoomTypes user={user} />} />
-        <ProtectedRoute exact path="/room-types/create" loggedIn={user} render={() => <RoomType user={user} />} />
-        <ProtectedRoute exact path="/room-types/edit/:id" loggedIn={user} render={() => <RoomType user={user} />} />
-        <ProtectedRoute exact path="/logout" loggedIn={user} render={() => <Logout setUser={setUser} />} />
+        <ProtectedRoute
+          exact
+          path="/reservations"
+          loggedIn={user}
+          render={() => <Reservations user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/reservations/create"
+          loggedIn={user}
+          render={() => <Reservation user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/reservations/edit/:id"
+          loggedIn={user}
+          render={() => <Reservation user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/room-types"
+          loggedIn={user}
+          render={() => <RoomTypes user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/room-types/create"
+          loggedIn={user}
+          render={() => <RoomType user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/room-types/edit/:id"
+          loggedIn={user}
+          render={() => <RoomType user={user} />}
+        />
+        <ProtectedRoute
+          exact
+          path="/logout"
+          loggedIn={user}
+          render={() => <Logout setUser={setUser} />}
+        />
         <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>

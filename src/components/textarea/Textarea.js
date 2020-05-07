@@ -11,6 +11,7 @@ const Textarea = ({
   error,
   label,
   message,
+  onChange,
   value
 }) => (
   <div className={style.Container}>
@@ -22,6 +23,7 @@ const Textarea = ({
       className={error ? style.Error : style.Textarea}
       value={value}
       id={label}
+      onChange={onChange}
     />
 
     {error && <p className={style.ErrMsg}>{message}</p>}

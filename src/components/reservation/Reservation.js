@@ -204,7 +204,7 @@ const Reservation = ({ user }) => {
         />
         <Dropdown
           label="Room Type"
-          error={inputErrors.name}
+          error={inputErrors.roomTypeId}
           message="Must select a room type"
           options={activeRoomTypes}
           value={reservation.roomTypeId}

@@ -11,6 +11,7 @@ const Input = ({
   error,
   label,
   message,
+  type,
   value,
   onChange
 }) => (
@@ -19,6 +20,7 @@ const Input = ({
 
     <input
       className={error ? style.Error : style.Input}
+      type={type}
       value={value}
       id={label}
       onChange={onChange}

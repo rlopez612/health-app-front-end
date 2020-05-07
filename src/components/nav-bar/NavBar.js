@@ -21,7 +21,7 @@ const NavBar = ({ user }) => {
 
         {user.role === 'manager' && (
           <NavLink to="/room-types" className={style.Link} activeClassName={style.Active}>
-            Rooms
+            Room Types
           </NavLink>
         )}
 

@@ -12,7 +12,7 @@ import HttpHelper from '../../utils/HttpHelper';
  * @return component
  */
 
-const Login = (setUser) => {
+const Login = ({ setUser }) => {
   const history = useHistory();
   // form inputs state
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -57,8 +57,6 @@ const Login = (setUser) => {
         throw new Error('Invalid email or password');
       })
       .then((data) => {
-        // toggle spinner since api call is done
-        setLoading(false);
         // set token in storage
         sessionStorage.setItem('token', data.token);
         // parse JWT for payload containing the user email and role

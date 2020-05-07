@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-onchange */
 import React from 'react';
 import style from './Dropdown.module.css';
 
@@ -23,7 +24,7 @@ const Dropdown = ({
       className={error ? style.Error : style.Dropdown}
       value={value}
       id={label}
-      onBlur={onChange}
+      onChange={onChange}
     >
       <option value="" disabled hidden>Select</option>
       {options.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}
