@@ -1,4 +1,9 @@
-.Container {
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.flex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

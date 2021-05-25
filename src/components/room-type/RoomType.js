@@ -40,13 +40,18 @@ const RoomType = ({ user }) => {
   });
 
   useEffect(() => {
+    // create varaible for cancelling api request
+    const cancel = new AbortController();
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
       HttpHelper(`/room-types/${params.id}`, 'GET')
         .then((response) => {
-          // if response is of 2xx
-          if (response.ok) {
+          // redirect to trigger NotFound page is server returns 404
+          if (response.status === 404) {
+            history.push(`/room-types/${params.id}`);
+          } else if (response.ok) {
+            // if response is of 2xx
             return response.json();
           }
           // if response is not a 2xx, throw error to move into catch block
@@ -56,12 +61,17 @@ const RoomType = ({ user }) => {
           setLoading(false);
           setRoom(data);
         })
-        .catch(() => {
-          setLoading(false);
-          setApiError(true);
+        .catch((error) => {
+          // set errors if not a cancel request
+          if (!error.name === 'AbortError') {
+            setLoading(false);
+            setApiError(true);
+          }
         });
     }
-  }, [params.id]);
+    // cleanup function if redirected
+    return () => cancel.abort();
+  }, [params.id, history]);
 
   /**
  * @name handleSubmit

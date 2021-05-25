@@ -43,6 +43,8 @@ const Reservation = ({ user }) => {
   });
 
   useEffect(() => {
+    // create varaible for cancelling api request
+    const cancel = new AbortController();
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
@@ -50,8 +52,11 @@ const Reservation = ({ user }) => {
       // with the reservations roomTypeId for display purposes
       Promise.all([HttpHelper(`/reservations/${params.id}`, 'GET'), HttpHelper('/room-types', 'GET')])
         .then(([reservationRes, roomsRes]) => {
+          // redirect to trigger NotFound page is server returns 404
+          if (reservationRes.status === 404) {
+            history.push(`/reservations/${params.id}`);
+          } else if (reservationRes.ok && roomsRes.ok) {
           // once both api calls have resolved successfully check if both are 2xx responses
-          if (reservationRes.ok && roomsRes.ok) {
             return Promise.all([reservationRes.json(), roomsRes.json()]);
           }
           // if either response is not a 2xx, throw error to move into catch block
@@ -63,10 +68,12 @@ const Reservation = ({ user }) => {
           setReservation(reservationData);
           setRooms(roomsData);
         })
-        .catch(() => {
-          // set errors
-          setLoading(false);
-          setApiError(true);
+        .catch((error) => {
+          // set errors if not a cancel request
+          if (!error.name === 'AbortError') {
+            setLoading(false);
+            setApiError(true);
+          }
         });
     } else {
       // if there is not an id in the URL, we are in create mode
@@ -90,7 +97,9 @@ const Reservation = ({ user }) => {
           setApiError(true);
         });
     }
-  }, [params.id]);
+    // cleanup function if redirected
+    return () => cancel.abort();
+  }, [params.id, history]);
 
   /**
  * @name handleSubmit

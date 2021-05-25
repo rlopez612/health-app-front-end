@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 /**
@@ -8,7 +8,9 @@ import { Redirect } from 'react-router-dom';
  * @return component
  */
 const Logout = ({ setUser }) => {
-  setUser(null);
+  useEffect(() => {
+    setUser(null);
+  }, [setUser]);
   sessionStorage.clear();
   return <Redirect to="/" />;
 };

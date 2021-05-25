@@ -32,7 +32,7 @@ const NavBar = ({ user }) => {
 
   return (
     <nav className={style.NavBar}>
-      <h3>Hotel Bookings</h3>
+      <h3 className={style.Logo}>Hotel Bookings</h3>
       {links}
     </nav>
   );

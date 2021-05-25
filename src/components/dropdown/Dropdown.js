@@ -30,7 +30,7 @@ const Dropdown = ({
       {options.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}
     </select>
 
-    {error && <p className={style.ErrMsg}>{message}</p>}
+    <p className={style.ErrMsg}>{error && message}</p>
   </div>
 );
 

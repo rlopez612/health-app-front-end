@@ -1,12 +1,13 @@
 .Container {
   display: flex;
   flex-direction: row;
+  margin-bottom: 15px;
 }
 
 .Checkbox {
   color: #1b3e77;
   height: 20px;
-  margin: 4px;
+  /* margin: 4px; */
   width: 20px;
 }
 
@@ -14,4 +15,8 @@
   color: #1b3e77;
   font-size: 16px;
   margin: 4px;
+}
+
+.width {
+  width: 310px;
 }

@@ -61,6 +61,8 @@ const Login = ({ setUser }) => {
         sessionStorage.setItem('token', data.token);
         // parse JWT for payload containing the user email and role
         const user = JSON.parse(atob(data.token.split('.')[1]));
+        // save the user to session storage
+        sessionStorage.setItem('user', JSON.stringify({ email: user.sub, role: user.roles }));
         // update user state in App component to show a valid user
         setUser({ email: user.sub, role: user.roles });
         // redirect to reservations page

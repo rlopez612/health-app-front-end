@@ -67,7 +67,7 @@ const RoomTypes = () => {
   ));
 
   return (
-    <div>
+    <div className={style.container}>
       {loading && <Spinner />}
       {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
 
@@ -76,9 +76,10 @@ const RoomTypes = () => {
         <Link to="/room-types/create"><Button color="Primary" type="button">Create</Button></Link>
       </div>
 
-      <div className={style.Container}>
+      <div className={style.flex}>
         {createRoomTypeDisplays()}
       </div>
+
     </div>
   );
 };
