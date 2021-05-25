@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Logout from '../logout/Logout';
 import NavBar from '../nav-bar/NavBar';
 import Login from '../login/Login';
@@ -16,7 +16,7 @@ import NotFound from '../not-found/NotFound';
  * @returns component
  */
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')) || null);
 
   return (
     <BrowserRouter>
@@ -28,7 +28,7 @@ const App = () => {
           exact
           path="/reservations"
           loggedIn={user}
-          render={() => <Reservations user={user} />}
+          render={() => <Reservations />}
         />
         <ProtectedRoute
           exact
@@ -46,7 +46,9 @@ const App = () => {
           exact
           path="/room-types"
           loggedIn={user}
-          render={() => <RoomTypes user={user} />}
+          render={() => (
+            user.role === 'manager' ? <RoomTypes /> : <Redirect to="/reservations" />
+          )}
         />
         <ProtectedRoute
           exact

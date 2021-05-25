@@ -124,7 +124,7 @@ const Reservations = () => {
   };
 
   return (
-    <div>
+    <div className={style.container}>
       {loading && <Spinner />}
       <div className={style.Header}>
         <h1>Reservations</h1>
@@ -132,7 +132,7 @@ const Reservations = () => {
       </div>
 
       {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
-      <div className={style.Container}>
+      <div className={style.flex}>
         {createReservationDisplays()}
       </div>
     </div>

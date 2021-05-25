@@ -8,16 +8,18 @@ import style from './Checkbox.module.css';
  * @return component
  */
 const Checkbox = ({ checked, label, onChange }) => (
-  <div className={style.Container}>
-    <label className={style.Label} htmlFor={label}>{label}</label>
+  <div className={style.width}>
+    <div className={style.Container}>
+      <label className={style.Label} htmlFor={label}>{label}</label>
 
-    <input
-      type="checkbox"
-      className={style.Checkbox}
-      checked={checked}
-      id={label}
-      onChange={onChange}
-    />
+      <input
+        type="checkbox"
+        className={style.Checkbox}
+        checked={checked}
+        id={label}
+        onChange={onChange}
+      />
+    </div>
   </div>
 );
 

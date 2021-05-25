@@ -26,7 +26,7 @@ const Input = ({
       onChange={onChange}
     />
 
-    {error && <p className={style.ErrMsg}>{message}</p>}
+    <p className={style.ErrMsg}>{error && message}</p>
   </div>
 );
 
