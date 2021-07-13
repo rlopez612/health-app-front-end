@@ -79,11 +79,19 @@ const Login = ({ setUser }) => {
   return (
     <div className={styles.home}>
       <Form title="Login" action="Login" onSubmit={handleFormSubmit}>
-        {invalidCredentials && <p>Invalid email or password</p>}
-
-        <Input type="email" label="Email" onChange={(event) => handleChange(event, 'email')} />
-
-        <Input type="password" label="Password" onChange={(event) => handleChange(event, 'password')} />
+        <Input
+          type="email"
+          label="Email"
+          onChange={(event) => handleChange(event, 'email')}
+        />
+        <Input
+          type="password"
+          label="Password"
+          onChange={(event) => handleChange(event, 'password')}
+        />
+        {invalidCredentials && (
+          <h4 className={styles.invalid}>Invalid email or password</h4>
+        )}
       </Form>
       {loading && <Spinner />}
     </div>

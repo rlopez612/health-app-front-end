@@ -20,7 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "coverage": "npm test -- --coverage",
+    "coverage": "react-scripts test --coverage --watchAll",
     "lint": "eslint . --fix",
     "eject": "react-scripts eject"
   },
@@ -38,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "msw": "^0.31.0"
   }
 }

@@ -8,3 +8,11 @@
   bottom: 0px;
   left: 0px;
 }
+
+.invalid {
+  margin-top: -25px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: tomato;
+  height: 10px;
+}

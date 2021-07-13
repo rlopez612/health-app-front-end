@@ -8,24 +8,26 @@ exports[`Room renders correctly 1`] = `
   <h1
     className="Title"
   >
-    Edit Room
+    Create Room Type
   </h1>
   <div
     className="Container"
   >
     <label
       className="Label"
+      htmlFor="Room Type"
     >
       Room Type
     </label>
     <input
       className="Input"
-      error={false}
-      label="Room Type"
-      message="Must be at least 3 characters"
+      id="Room Type"
       onChange={[Function]}
       type="text"
       value=""
+    />
+    <p
+      className="ErrMsg"
     />
   </div>
   <div
@@ -33,17 +35,20 @@ exports[`Room renders correctly 1`] = `
   >
     <label
       className="Label"
+      htmlFor="Description"
     >
       Description
     </label>
     <textarea
       className="Textarea"
       cols="20"
-      label="Description"
+      id="Description"
       onChange={[Function]}
       rows="2"
-      type="text"
       value=""
+    />
+    <p
+      className="ErrMsg"
     />
   </div>
   <div
@@ -51,41 +56,47 @@ exports[`Room renders correctly 1`] = `
   >
     <label
       className="Label"
+      htmlFor="Rate"
     >
       Rate
     </label>
     <input
       className="Input"
-      error={false}
-      label="Rate"
-      message="Must be number greater than zero"
+      id="Rate"
       onChange={[Function]}
       type="number"
       value=""
     />
+    <p
+      className="ErrMsg"
+    />
   </div>
   <div
-    className="Container"
+    className="width"
   >
-    <label
-      className="Label"
+    <div
+      className="Container"
     >
-      Active
-    </label>
-    <input
-      checked={true}
-      className="Checkbox"
-      label="Active"
-      onChange={[Function]}
-      type="checkbox"
-    />
+      <label
+        className="Label"
+        htmlFor="Active"
+      >
+        Active
+      </label>
+      <input
+        checked={true}
+        className="Checkbox"
+        id="Active"
+        onChange={[Function]}
+        type="checkbox"
+      />
+    </div>
   </div>
   <button
     className="Button Primary"
-    color="Primary"
     type="Submit"
   >
-    Update
+    Create
   </button>
 </form>
 `;
