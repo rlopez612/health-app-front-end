@@ -12,7 +12,7 @@ export const isValidEmail = (email) => /^\S+@\S+\.\S+$/.test(email);
  * @param {string} date
  * @return boolean
  */
-export const isValidDate = (date) => /(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/.test(date);
+export const isValidDate = (date) => /(0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[-](19|20)\d\d/.test(date);
 
 /**
  * @name isValidNumber

@@ -68,15 +68,13 @@ const RoomTypes = () => {
 
   return (
     <div className={style.container}>
-      {loading && <Spinner />}
-      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
-
       <div className={style.Header}>
         <h1>Room Types</h1>
         <Link to="/room-types/create"><Button color="Primary" type="button">Create</Button></Link>
       </div>
-
-      <div className={style.flex}>
+      {loading && <Spinner />}
+      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
+      <div className={style.grid}>
         {createRoomTypeDisplays()}
       </div>
     </div>

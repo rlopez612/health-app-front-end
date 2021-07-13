@@ -3,10 +3,11 @@
   margin: 0 auto;
 }
 
-.flex {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.grid {
+  padding: 1em;
+  display: grid;
+  gap: 2em;
+  grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
 }
 
 .Header {

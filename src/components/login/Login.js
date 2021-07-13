@@ -4,6 +4,7 @@ import Form from '../form/Form';
 import Input from '../input/Input';
 import Spinner from '../spinner/Spinner';
 import HttpHelper from '../../utils/HttpHelper';
+import styles from './Login.module.css';
 
 /**
  * @name Login
@@ -76,9 +77,7 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <>
-      {loading && <Spinner />}
-
+    <div className={styles.home}>
       <Form title="Login" action="Login" onSubmit={handleFormSubmit}>
         {invalidCredentials && <p>Invalid email or password</p>}
 
@@ -86,7 +85,8 @@ const Login = ({ setUser }) => {
 
         <Input type="password" label="Password" onChange={(event) => handleChange(event, 'password')} />
       </Form>
-    </>
+      {loading && <Spinner />}
+    </div>
   );
 };
 

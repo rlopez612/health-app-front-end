@@ -43,8 +43,6 @@ const Reservation = ({ user }) => {
   });
 
   useEffect(() => {
-    // create variable for cancelling api request
-    const cancel = new AbortController();
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
@@ -52,14 +50,17 @@ const Reservation = ({ user }) => {
       // with the reservations roomTypeId for display purposes
       Promise.all([HttpHelper(`/reservations/${params.id}`, 'GET'), HttpHelper('/room-types', 'GET')])
         .then(([reservationRes, roomsRes]) => {
-          // redirect to trigger NotFound page if server returns 404
-          if (reservationRes.status === 404) {
-            history.push(`/reservations/${params.id}`);
-          } else if (reservationRes.ok && roomsRes.ok) {
+          if (reservationRes.ok && roomsRes.ok) {
             // once both api calls have resolved successfully check if both are 2xx responses
             return Promise.all([reservationRes.json(), roomsRes.json()]);
           }
-          // if either response is not a 2xx, throw error to move into catch block
+          // redirect to trigger NotFound page is server returns 404
+          if (reservationRes.status === 404) {
+            setLoading(false);
+            history.push(`/reservations/${params.id}`);
+            throw new Error('AbortError');
+          }
+          // if either response is not a 2xx or 404, throw error to move into catch block
           throw new Error('Something went wrong');
         })
         .then(([reservationData, roomsData]) => {
@@ -69,11 +70,10 @@ const Reservation = ({ user }) => {
           setRooms(roomsData);
         })
         .catch((error) => {
+          if (error.message === 'AbortError') return;
           // set errors if not a cancel request
-          if (error.name !== 'AbortError') {
-            setLoading(false);
-            setApiError(true);
-          }
+          setLoading(false);
+          setApiError(true);
         });
     } else {
       // if there is not an id in the URL, we are in create mode
@@ -97,8 +97,6 @@ const Reservation = ({ user }) => {
           setApiError(true);
         });
     }
-    // cleanup function if redirected
-    return () => cancel.abort();
   }, [params.id, history]);
 
   /**
@@ -179,9 +177,6 @@ const Reservation = ({ user }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
-
       <Form
         title={params.id ? 'Edit Reservation' : 'Create Reservation'}
         action={params.id ? 'Update' : 'Create'}
@@ -220,6 +215,8 @@ const Reservation = ({ user }) => {
           onChange={(event) => handleChange(event, 'roomTypeId')}
         />
       </Form>
+      {loading && <Spinner />}
+      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
     </>
   );
 };

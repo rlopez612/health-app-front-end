@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter, Redirect, Route, Switch
+} from 'react-router-dom';
 import Logout from '../logout/Logout';
 import NavBar from '../nav-bar/NavBar';
 import Login from '../login/Login';
@@ -16,7 +17,7 @@ import NotFound from '../not-found/NotFound';
  * @returns component
  */
 const App = () => {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')) || null);
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
   return (
     <BrowserRouter>
