@@ -109,7 +109,7 @@ const Reservations = () => {
             </p>
             <p className={style.Text}>
               <strong>Total: </strong>
-              {matchingRoom.rate * reservation.numberOfNights}
+              {(matchingRoom.rate * reservation.numberOfNights).toFixed(2)}
             </p>
 
             <div className={style.Container}>
@@ -125,14 +125,13 @@ const Reservations = () => {
 
   return (
     <div className={style.container}>
-      {loading && <Spinner />}
       <div className={style.Header}>
         <h1>Reservations</h1>
         <Link to="/reservations/create"><Button color="Primary" type="button">Create</Button></Link>
       </div>
-
+      {loading && <Spinner />}
       {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
-      <div className={style.flex}>
+      <div className={style.grid}>
         {createReservationDisplays()}
       </div>
     </div>

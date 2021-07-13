@@ -14,7 +14,7 @@ const NavBar = ({ user }) => {
   // add nav links if there is a valid user
   if (user) {
     links = (
-      <div className={style.Links}>
+      <div>
         <NavLink to="/reservations" className={style.Link} activeClassName={style.Active}>
           Reservations
         </NavLink>

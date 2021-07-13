@@ -40,21 +40,22 @@ const RoomType = ({ user }) => {
   });
 
   useEffect(() => {
-    // create varaible for cancelling api request
-    const cancel = new AbortController();
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
       HttpHelper(`/room-types/${params.id}`, 'GET')
         .then((response) => {
-          // redirect to trigger NotFound page is server returns 404
-          if (response.status === 404) {
-            history.push(`/room-types/${params.id}`);
-          } else if (response.ok) {
+          if (response.ok) {
             // if response is of 2xx
             return response.json();
           }
-          // if response is not a 2xx, throw error to move into catch block
+          // redirect to trigger NotFound page is server returns 404
+          if (response.status === 404) {
+            setLoading(false);
+            history.push(`/room-types/${params.id}`);
+            throw new Error('AbortError');
+          }
+          // if response is not a 2xx or 404, throw error to move into catch block
           throw new Error('Something went wrong');
         })
         .then((data) => {
@@ -62,15 +63,12 @@ const RoomType = ({ user }) => {
           setRoom(data);
         })
         .catch((error) => {
+          if (error.message === 'AbortError') return;
           // set errors if not a cancel request
-          if (!error.name === 'AbortError') {
-            setLoading(false);
-            setApiError(true);
-          }
+          setLoading(false);
+          setApiError(true);
         });
     }
-    // cleanup function if redirected
-    return () => cancel.abort();
   }, [params.id, history]);
 
   /**
@@ -153,9 +151,6 @@ const RoomType = ({ user }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
-
       <Form
         title={params.id ? 'Edit Room Type' : 'Create Room Type'}
         action={params.id ? 'Update' : 'Create'}
@@ -188,6 +183,8 @@ const RoomType = ({ user }) => {
           onChange={handleCheck}
         />
       </Form>
+      {loading && <Spinner />}
+      {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}
     </>
   );
 };
