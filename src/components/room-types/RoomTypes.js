@@ -69,7 +69,7 @@ const RoomTypes = () => {
   return (
     <div className={style.container}>
       <div className={style.Header}>
-        <h1>Room Types</h1>
+        <h1 className={style.headingMargin}>Room Types</h1>
         <Link to="/room-types/create"><Button color="Primary" type="button">Create</Button></Link>
       </div>
       {loading && <Spinner />}

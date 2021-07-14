@@ -14,9 +14,13 @@
   align-items: center;
   color: #f78d34;
   display: flex;
-  margin: 0 16px;
+  margin: 0 1rem;
 }
 
 .Text {
-  margin: 0;
+  margin: 1px 0;
+}
+
+.headingMargin {
+  margin-right: 1rem;
 }
