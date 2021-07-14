@@ -126,7 +126,7 @@ const Reservations = () => {
   return (
     <div className={style.container}>
       <div className={style.Header}>
-        <h1>Reservations</h1>
+        <h1 className={style.headingMargin}>Reservations</h1>
         <Link to="/reservations/create"><Button color="Primary" type="button">Create</Button></Link>
       </div>
       {loading && <Spinner />}

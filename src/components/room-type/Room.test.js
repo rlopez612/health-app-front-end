@@ -104,6 +104,7 @@ it('should redirect to the room types page on successful post', async () => {
     </Router>
   );
 
+  // Fill out the form fields with valid data
   fireEvent.input(screen.getByLabelText(/Room Type/i), {
     target: { value: 'Manager Special' }
   });
@@ -116,6 +117,7 @@ it('should redirect to the room types page on successful post', async () => {
     target: { value: 199.99 }
   });
 
+  // Submit form with valid data
   fireEvent.submit(screen.getByRole('button'));
   await waitFor(() => expect(history.location.pathname).toBe('/room-types'));
 });

@@ -7,7 +7,9 @@ exports[`Renders the RoomTypes page 1`] = `
   <div
     className="Header"
   >
-    <h1>
+    <h1
+      className="headingMargin"
+    >
       Room Types
     </h1>
     <a
