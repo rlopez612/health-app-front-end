@@ -6,9 +6,9 @@
 }
 
 .Error {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 2px solid red;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   height: 58px;
   width: 300px;
@@ -23,9 +23,9 @@
 }
 
 .Textarea {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 1px solid grey;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-family: inherit;
   font-size: 16px;
   height: 60px;
@@ -33,7 +33,7 @@
 }
 
 .Label {
-  color: #1b3e77;
+  color: var(--primary-color);
   font-size: 16px;
   margin: 1px;
 }

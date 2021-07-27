@@ -12,7 +12,7 @@
 
 .Header {
   align-items: center;
-  color: #f78d34;
+  color: var(--secondary-color);
   display: flex;
   margin: 0 1rem;
 }

@@ -5,13 +5,13 @@
 }
 
 .Checkbox {
-  color: #1b3e77;
+  color: var(--primary-color);
   height: 20px;
   width: 20px;
 }
 
 .Label {
-  color: #1b3e77;
+  color: var(--primary-color);
   font-size: 16px;
   margin: 4px;
 }

@@ -6,7 +6,7 @@
 }
 
 .Error {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 2px solid red;
   border-radius: 4px;
   font-size: 16px;
@@ -24,9 +24,9 @@
 }
 
 .Input {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 1px solid grey;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   height: 30px;
   padding: 3px 10px;
@@ -34,7 +34,7 @@
 }
 
 .Label {
-  color: #1b3e77;
+  color: var(--primary-color);
   font-size: 16px;
   margin: 1px;
 }

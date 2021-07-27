@@ -11,7 +11,7 @@ import Button from '../button/Button';
 const Form = ({
   action, children, title, onSubmit
 }) => (
-  <form className={style.Form} onSubmit={onSubmit}>
+  <form className={style.Form} onSubmit={onSubmit} noValidate>
     <h1 className={style.Title}>{title}</h1>
     {children}
     <Button color="Primary" type="Submit">{action}</Button>

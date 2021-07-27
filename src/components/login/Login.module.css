@@ -2,11 +2,10 @@
   height: 95vh;
   background-image: url('../../images/homepage.jpg');
   background-size: cover;
+  background-position: top center;
   position: absolute;
+  width: 100%;
   top: 48px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
 }
 
 .invalid {

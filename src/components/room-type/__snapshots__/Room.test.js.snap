@@ -3,6 +3,7 @@
 exports[`Room renders correctly 1`] = `
 <form
   className="Form"
+  noValidate={true}
   onSubmit={[Function]}
 >
   <h1

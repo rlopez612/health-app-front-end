@@ -6,9 +6,9 @@
 }
 
 .Dropdown {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 1px solid grey;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   height: 40px;
   margin: 4px;
@@ -17,9 +17,9 @@
 }
 
 .Error {
-  color: #1b3e77;
+  color: var(--primary-color);
   border: 2px solid red;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   height: 40px;
   margin: 4px;
@@ -36,7 +36,7 @@
 }
 
 .Label {
-  color: #1b3e77;
+  color: var(--primary-color);
   font-size: 16px;
   margin-left: 5px;
 }

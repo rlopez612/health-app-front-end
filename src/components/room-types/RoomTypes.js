@@ -53,7 +53,7 @@ const RoomTypes = () => {
       </p>
       <p className={style.Text}>
         <strong>Rate: </strong>
-        {room.rate}
+        {(room.rate).toFixed(2)}
       </p>
       <p className={style.Text}>
         <strong>Status: </strong>

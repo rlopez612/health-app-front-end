@@ -1,4 +1,4 @@
 .NotFound {
-  color: #1b3e77;
+  color: var(--primary-color);
   text-align: center;
 }
