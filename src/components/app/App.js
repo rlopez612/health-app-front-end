@@ -9,7 +9,6 @@ import Reservations from '../reservations/Reservations';
 import Reservation from '../reservation/Reservation';
 import RoomTypes from '../room-types/RoomTypes';
 import RoomType from '../room-type/RoomType';
-import ProtectedRoute from '../protected-route/ProtectedRoute';
 import NotFound from '../not-found/NotFound';
 
 /**
@@ -25,25 +24,25 @@ const App = () => {
 
       <Switch>
         <Route exact path="/" render={() => <Login setUser={setUser} />} />
-        <ProtectedRoute
+        <Route
           exact
           path="/reservations"
           loggedIn={user}
           render={() => <Reservations />}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/reservations/create"
           loggedIn={user}
           render={() => <Reservation user={user} />}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/reservations/edit/:id"
           loggedIn={user}
           render={() => <Reservation user={user} />}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/room-types"
           loggedIn={user}
@@ -51,19 +50,19 @@ const App = () => {
             user.role === 'manager' ? <RoomTypes /> : <Redirect to="/reservations" />
           )}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/room-types/create"
           loggedIn={user}
           render={() => <RoomType user={user} />}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/room-types/edit/:id"
           loggedIn={user}
           render={() => <RoomType user={user} />}
         />
-        <ProtectedRoute
+        <Route
           exact
           path="/logout"
           loggedIn={user}

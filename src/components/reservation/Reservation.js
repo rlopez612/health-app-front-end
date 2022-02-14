@@ -14,7 +14,7 @@ import HttpHelper from '../../utils/HttpHelper';
  * @param {*} props
  * @return
  */
-const Reservation = ({ user }) => {
+const Reservation = () => {
   // Hooks to work with URL
   const history = useHistory();
   const params = useParams();
@@ -26,9 +26,9 @@ const Reservation = ({ user }) => {
   // state for room-types and reservations
   const [rooms, setRooms] = useState([]);
   const [reservation, setReservation] = useState({
-    id: null,
-    user: user.email,
-    guestEmail: '',
+    id: 'd',
+    user: 'wn@wok.com',
+    guestEmail: 'wonka@wokna.com',
     roomTypeId: '',
     checkInDate: '',
     numberOfNights: ''
