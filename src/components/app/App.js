@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  BrowserRouter, Redirect, Route, Switch
+  BrowserRouter, Route, Switch
 } from 'react-router-dom';
 import Logout from '../logout/Logout';
 import NavBar from '../nav-bar/NavBar';
@@ -10,6 +10,7 @@ import Reservation from '../reservation/Reservation';
 import RoomTypes from '../room-types/RoomTypes';
 import RoomType from '../room-type/RoomType';
 import NotFound from '../not-found/NotFound';
+import Patients from '../patients/Patients';
 
 /**
  * @name App
@@ -32,6 +33,12 @@ const App = () => {
         />
         <Route
           exact
+          path="/patients"
+          loggedIn={user}
+          render={() => <Patients />}
+        />
+        <Route
+          exact
           path="/reservations/create"
           loggedIn={user}
           render={() => <Reservation user={user} />}
@@ -46,9 +53,7 @@ const App = () => {
           exact
           path="/room-types"
           loggedIn={user}
-          render={() => (
-            user.role === 'manager' ? <RoomTypes /> : <Redirect to="/reservations" />
-          )}
+          render={() => <RoomTypes />}
         />
         <Route
           exact
