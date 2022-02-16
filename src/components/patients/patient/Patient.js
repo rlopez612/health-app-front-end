@@ -164,17 +164,17 @@ const Patient = () => {
       invalidForm = true;
     }
 
-    if (!isValidNumber(patient.age)) {
+    if (!isValidNumber(patient.age) || patient.age === '') {
       errors.age = true;
       invalidForm = true;
     }
 
-    if (!isValidNumber(patient.weight)) {
+    if (!isValidNumber(patient.weight) || patient.weight === '') {
       errors.weight = true;
       invalidForm = true;
     }
 
-    if (!isValidNumber(patient.height)) {
+    if (!isValidNumber(patient.height) || patient.height === '') {
       errors.height = true;
       invalidForm = true;
     }

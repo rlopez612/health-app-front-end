@@ -51,27 +51,6 @@ const Patients = () => {
  * @param {*} props
  * @return
  */
-  const handleDelete = (id) => {
-    setLoading(true);
-    HttpHelper(`/patients/${id}`, 'DELETE')
-      .then((response) => {
-        // if delete was not successful 204, throw error to move into catch block
-        if (!response.ok) {
-          throw new Error('Something went wrong');
-        }
-        // find item to delete in reservations list
-        const deletedIndex = patients.findIndex((patient) => patient.id === id);
-        const newPatients = [...patients];
-        // create copy of reservations array and remove the deleted one
-        newPatients.splice(deletedIndex, 1);
-        setLoading(false);
-        setPatients(newPatients);
-      })
-      .catch(() => {
-        setLoading(false);
-        setApiError(true);
-      });
-  };
 
   /**
 * @name createReservationDisplays
@@ -102,8 +81,7 @@ const Patients = () => {
           </p>
 
           <div className={style.Container}>
-            <Link className={style.Link} to={`/patients/edit/${patient.id}`}><Button color="Primary" type="button">Edit</Button></Link>
-            <Button color="Warn" type="button" onClick={() => handleDelete(patient.id)}>Delete</Button>
+            <Link className={style.Link} to={`/logout/${patient.id}`}><Button color="Primary" type="button">Patient Details</Button></Link>
           </div>
         </Card>
       ));

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   BrowserRouter, Route, Switch
 } from 'react-router-dom';
-import Logout from '../logout/Logout';
 import NavBar from '../nav-bar/NavBar';
 import Login from '../login/Login';
 import Reservations from '../reservations/Reservations';
@@ -12,6 +11,7 @@ import RoomType from '../room-type/RoomType';
 import NotFound from '../not-found/NotFound';
 import Patients from '../patients/Patients';
 import Patient from '../patients/patient/Patient';
+import PatientDetails from '../patientDetails/PatientDetails';
 
 /**
  * @name App
@@ -75,9 +75,9 @@ const App = () => {
         />
         <Route
           exact
-          path="/logout"
+          path="/logout/:id"
           loggedIn={user}
-          render={() => <Logout setUser={setUser} />}
+          render={() => <PatientDetails />}
         />
         <Route path="*" component={NotFound} />
       </Switch>
