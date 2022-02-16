@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import Form from '../form/Form';
@@ -5,7 +6,7 @@ import Input from '../input/Input';
 import Dropdown from '../dropdown/Dropdown';
 import Modal from '../modal/Modal';
 import Spinner from '../spinner/Spinner';
-import { isValidEmail, isValidDate, isValidNumber } from '../../utils/validation';
+import { isValidEmail, isValidNumber } from '../../utils/validation';
 import HttpHelper from '../../utils/HttpHelper';
 
 /**
@@ -115,24 +116,24 @@ const Reservation = () => {
       checkInDate: false,
       numberOfNights: false
     };
-    let invalidForm = false;
+    const invalidForm = false;
 
-    if (!isValidEmail(reservation.guestEmail)) {
-      errors.guestEmail = true;
-      invalidForm = true;
-    }
-    if (!isValidDate(reservation.checkInDate)) {
-      errors.checkInDate = true;
-      invalidForm = true;
-    }
-    if (!isValidNumber(reservation.numberOfNights)) {
-      errors.numberOfNights = true;
-      invalidForm = true;
-    }
-    if (reservation.roomTypeId === '') {
-      errors.roomTypeId = true;
-      invalidForm = true;
-    }
+    // if (!isValidEmail(reservation.guestEmail)) {
+    //   errors.guestEmail = true;
+    //   invalidForm = true;
+    // }
+    // if (!isValidDate(reservation.checkInDate)) {
+    //   errors.checkInDate = true;
+    //   invalidForm = true;
+    // }
+    // if (!isValidNumber(reservation.numberOfNights)) {
+    //   errors.numberOfNights = true;
+    //   invalidForm = true;
+    // }
+    // if (reservation.roomTypeId === '') {
+    //   errors.roomTypeId = true;
+    //   invalidForm = true;
+    // }
 
     if (!invalidForm) {
       // method and route depend on if we are editing or creating

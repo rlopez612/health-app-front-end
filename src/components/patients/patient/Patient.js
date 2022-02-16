@@ -5,8 +5,11 @@ import Form from '../../form/Form';
 import Input from '../../input/Input';
 import Modal from '../../modal/Modal';
 import Spinner from '../../spinner/Spinner';
-import { isValidEmail } from '../../../utils/validation';
+import {
+  isValidEmail, isValidName, isValidSocial, isValidZipcode, isValidNumber
+} from '../../../utils/validation';
 import HttpHelper from '../../../utils/HttpHelper';
+import Dropdown from '../../dropdown/Dropdown';
 
 /**
  * @name
@@ -43,6 +46,16 @@ const Patient = () => {
     gender: ''
   });
 
+  const stateAbbreviations = [
+    'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA',
+    'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA',
+    'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+    'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT',
+    'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'
+  ];
+
+  const genderOptions = ['Male', 'Female', 'Other'];
+
   // state to track input errors
   const [inputErrors, setInputErrors] = useState({
     firstName: false,
@@ -53,7 +66,7 @@ const Patient = () => {
       street: false,
       city: false,
       state: false,
-      zipCode: false
+      postal: false
     },
     age: false,
     height: false,
@@ -116,7 +129,7 @@ const Patient = () => {
         street: false,
         city: false,
         state: false,
-        zipCode: false
+        postal: false
       },
       age: false,
       height: false,
@@ -127,10 +140,66 @@ const Patient = () => {
     let invalidForm = false;
 
     if (!isValidEmail(patient.email)) {
-      errors.email = false;
-      invalidForm = false;
+      errors.email = true;
+      invalidForm = true;
     }
 
+    if (!isValidName(patient.firstName)) {
+      errors.firstName = true;
+      invalidForm = true;
+    }
+
+    if (!isValidName(patient.lastName)) {
+      errors.lastName = true;
+      invalidForm = true;
+    }
+
+    if (!isValidSocial(patient.ssn)) {
+      errors.ssn = true;
+      invalidForm = true;
+    }
+
+    if (!isValidZipcode(patient.address.postal)) {
+      errors.address.postal = true;
+      invalidForm = true;
+    }
+
+    if (!isValidNumber(patient.age)) {
+      errors.age = true;
+      invalidForm = true;
+    }
+
+    if (!isValidNumber(patient.weight)) {
+      errors.weight = true;
+      invalidForm = true;
+    }
+
+    if (!isValidNumber(patient.height)) {
+      errors.height = true;
+      invalidForm = true;
+    }
+
+    if (patient.insurance == null || patient.insurance === '') {
+      errors.insurance = true;
+      invalidForm = true;
+    }
+
+    if (patient.gender == null || patient.gender === '') {
+      errors.gender = true;
+      invalidForm = true;
+    }
+    if (patient.address.street == null || patient.address.street === '') {
+      errors.address.street = true;
+      invalidForm = true;
+    }
+    if (patient.address.city == null || patient.address.city === '') {
+      errors.address.city = true;
+      invalidForm = true;
+    }
+    if (patient.address.state == null || patient.address.state === '') {
+      errors.address.state = true;
+      invalidForm = true;
+    }
     if (!invalidForm) {
       // method and route depend on if we are editing or creating
       const method = params.id ? 'PUT' : 'POST';
@@ -196,7 +265,7 @@ const Patient = () => {
           label="Social Security Number"
           type="text"
           error={inputErrors.ssn}
-          message="SSN must be in format XX-XX-XXXX"
+          message="SSN must be in format XXX-XX-XXXX"
           value={patient.ssn}
           onChange={(event) => handleChange(event, 'ssn')}
         />
@@ -204,7 +273,7 @@ const Patient = () => {
           label="E-mail"
           type="email"
           error={inputErrors.email}
-          message="Must be valid email"
+          message="Valid email required"
           value={patient.email}
           onChange={(event) => handleChange(event, 'email')}
         />
@@ -233,11 +302,11 @@ const Patient = () => {
             setPatient(newObj);
           }}
         />
-        <Input
+        <Dropdown
           label="State"
-          type="text"
+          options={stateAbbreviations}
           error={inputErrors.address.state}
-          message="Field is required"
+          message="Must select a State"
           value={patient.address.state}
           onChange={(event) => {
             const newObj = { ...patient };
@@ -248,8 +317,8 @@ const Patient = () => {
         <Input
           label="Zipcode"
           type="text"
-          error={inputErrors.address.zipCode}
-          message="Field is required"
+          error={inputErrors.address.postal}
+          message="ZipCode required in format XXXXX or XXXXX-XXXX"
           value={patient.address.postal}
           onChange={(event) => {
             const newObj = { ...patient };
@@ -261,23 +330,23 @@ const Patient = () => {
           label="Age"
           type="text"
           error={inputErrors.age}
-          message=""
+          message="Field is required, digits only"
           value={patient.age}
           onChange={(event) => handleChange(event, 'age')}
         />
         <Input
-          label="Height"
+          label="Height (inches)"
           type="text"
           error={inputErrors.height}
-          message=""
+          message="Field is required, digits only"
           value={patient.height}
           onChange={(event) => handleChange(event, 'height')}
         />
         <Input
-          label="Weight"
+          label="Weight (lbs)"
           type="text"
           error={inputErrors.weight}
-          message=""
+          message="Field is required, digits only"
           value={patient.weight}
           onChange={(event) => handleChange(event, 'weight')}
         />
@@ -289,9 +358,9 @@ const Patient = () => {
           value={patient.insurance}
           onChange={(event) => handleChange(event, 'insurance')}
         />
-        <Input
+        <Dropdown
           label="Gender"
-          type="text"
+          options={genderOptions}
           error={inputErrors.gender}
           message="Field is required"
           value={patient.gender}
