@@ -102,7 +102,7 @@ const Patients = () => {
           </p>
 
           <div className={style.Container}>
-            <Link className={style.Link} to={`/reservations/edit/${patient.id}`}><Button color="Primary" type="button">Edit</Button></Link>
+            <Link className={style.Link} to={`/patients/edit/${patient.id}`}><Button color="Primary" type="button">Edit</Button></Link>
             <Button color="Warn" type="button" onClick={() => handleDelete(patient.id)}>Delete</Button>
           </div>
         </Card>
@@ -115,7 +115,7 @@ const Patients = () => {
     <div className={style.container}>
       <div className={style.Header}>
         <h1 className={style.headingMargin}>Patients</h1>
-        <Link to="/reservations/create"><Button color="Primary" type="button">Add New Patient</Button></Link>
+        <Link to="/patients/create"><Button color="Primary" type="button">Add New Patient</Button></Link>
       </div>
       {loading && <Spinner />}
       {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}

@@ -11,6 +11,7 @@ import RoomTypes from '../room-types/RoomTypes';
 import RoomType from '../room-type/RoomType';
 import NotFound from '../not-found/NotFound';
 import Patients from '../patients/Patients';
+import Patient from '../patients/patient/Patient';
 
 /**
  * @name App
@@ -45,9 +46,14 @@ const App = () => {
         />
         <Route
           exact
-          path="/reservations/edit/:id"
+          path="/patients/create"
+          render={() => <Patient />}
+        />
+        <Route
+          exact
+          path="/patients/edit/:id"
           loggedIn={user}
-          render={() => <Reservation user={user} />}
+          render={() => <Patient user={user} />}
         />
         <Route
           exact
