@@ -13,7 +13,7 @@ export const isValidEmail = (email) => /^\S+@\S+\.\S+$/.test(email);
  * @param {string} date
  * @return boolean
  */
-export const isValidSocial = (ssn) => /^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$/.test(ssn);
+export const isValidSocial = (ssn) => /^\d{3}-\d{2}-\d{4}$/.test(ssn);
 
 /**
  * @name isValidNumber

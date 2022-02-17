@@ -68,7 +68,7 @@ const Patients = () => {
       patientDisplays = patients.map((patient) => (
         <Card key={patient.id}>
           <p className={style.Text}>
-            <strong>Patient: </strong>
+            <strong>Name: </strong>
             {`${patient.firstName} ${patient.lastName}`}
           </p>
           <p className={style.Text}>
@@ -81,7 +81,7 @@ const Patients = () => {
           </p>
 
           <div className={style.Container}>
-            <Link className={style.Link} to={`/logout/${patient.id}`}><Button color="Primary" type="button">Patient Details</Button></Link>
+            <Link className={style.Link} to={`/patients/${patient.id}`}><Button color="Primary" type="button">Patient Details</Button></Link>
           </div>
         </Card>
       ));

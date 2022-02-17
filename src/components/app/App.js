@@ -75,7 +75,7 @@ const App = () => {
         />
         <Route
           exact
-          path="/logout/:id"
+          path="/patients/:id"
           loggedIn={user}
           render={() => <PatientDetails />}
         />

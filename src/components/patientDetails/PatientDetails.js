@@ -41,24 +41,6 @@ const PatientDetails = () => {
     gender: ''
   });
 
-  const [inputErrors, setInputErrors] = useState({
-    firstName: false,
-    lastName: false,
-    ssn: false,
-    email: false,
-    address: {
-      street: false,
-      city: false,
-      state: false,
-      postal: false
-    },
-    age: false,
-    height: false,
-    weight: false,
-    insurance: false,
-    gender: false
-  });
-
   useEffect(() => {
     if (params.id) {
       setLoading(true);
@@ -122,7 +104,7 @@ const PatientDetails = () => {
         {patientInfo.id}
       </p>
       <p className={style.Text}>
-        <strong>Patient: </strong>
+        <strong>Name: </strong>
         {`${patientInfo.firstName} ${patientInfo.lastName}`}
       </p>
       <p className={style.Text}>
@@ -158,7 +140,7 @@ const PatientDetails = () => {
         {patientInfo.height}
       </p>
       <p className={style.Text}>
-        <strong>Weight: </strong>
+        <strong>Weight (lbs): </strong>
         {patientInfo.weight}
       </p>
       <p className={style.Text}>
