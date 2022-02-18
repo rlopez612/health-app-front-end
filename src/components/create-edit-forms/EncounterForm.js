@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Form from '../../form/Form';
-import Input from '../../input/Input';
-import Modal from '../../modal/Modal';
-import Spinner from '../../spinner/Spinner';
+import Form from '../form/Form';
+import Input from '../input/Input';
+import Modal from '../modal/Modal';
+import Spinner from '../spinner/Spinner';
 import {
   isValidNumber, isValidDate, isValidPrice, isValidVisitCode,
   isValidBillingCode, isValidIcd10, hasOnlyWhiteSpace
-} from '../../../utils/validation';
-import HttpHelper from '../../../utils/HttpHelper';
+} from '../../utils/validation';
+import HttpHelper from '../../utils/HttpHelper';
 
 /**
  * @name

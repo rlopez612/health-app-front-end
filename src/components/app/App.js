@@ -5,10 +5,10 @@ import {
 } from 'react-router-dom';
 import NavBar from '../nav-bar/NavBar';
 import NotFound from '../not-found/NotFound';
-import PatientsPage from '../patients/PatientsPage';
-import PatientDetails from '../patientDetails/PatientDetails';
-import EncounterForm from '../patients/patient/EncounterForm';
-import PatientForm from '../patients/patient/PatientForm';
+import PatientsPage from '../patient-details/PatientsHomePage';
+import PatientDetails from '../patient-details/PatientDetails';
+import EncounterForm from '../create-edit-forms/EncounterForm';
+import PatientForm from '../create-edit-forms/PatientForm';
 
 /**
  * @name App

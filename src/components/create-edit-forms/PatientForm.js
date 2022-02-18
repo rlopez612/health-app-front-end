@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Form from '../../form/Form';
-import Input from '../../input/Input';
-import Modal from '../../modal/Modal';
-import Spinner from '../../spinner/Spinner';
+import Form from '../form/Form';
+import Input from '../input/Input';
+import Modal from '../modal/Modal';
+import Spinner from '../spinner/Spinner';
 import {
   isValidEmail, isValidName, isValidSocial, isValidZipcode, isValidNumber
-} from '../../../utils/validation';
-import HttpHelper from '../../../utils/HttpHelper';
-import Dropdown from '../../dropdown/Dropdown';
+} from '../../utils/validation';
+import HttpHelper from '../../utils/HttpHelper';
+import Dropdown from '../dropdown/Dropdown';
 
 /**
  * @name PatientForm
