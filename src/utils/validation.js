@@ -45,3 +45,43 @@ export const isValidZipcode = (field) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(field);
  * @return boolean
  */
 export const isValidDate = (date) => /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date);
+
+/**
+ * @name isValidPrice
+ * @description checks if number is valid digit, can include . for decimals
+ * @param {string} field
+ * @return boolean
+ */
+export const isValidPrice = (price) => /^[0-9]\d{0,9}(\.\d{1,2})?%?$/.test(price);
+
+/**
+ * @name isValidVisitCode
+ * @description checks if visitCode follows format (LDL DLD)
+ * @param {code} code
+ * @return boolean
+ */
+export const isValidVisitCode = (code) => /[a-zA-Z]\d[a-zA-Z]\s\d[a-zA-Z]\d$/.test(code);
+
+/**
+ * @name isValidBillingCode
+ * @description checks if billingCode follows format (DDD.DDD.DDD-DD)
+ * @param {code} code
+ * @return boolean
+ */
+export const isValidBillingCode = (code) => /^\d\d\d\.\d\d\d\.\d\d\d-\d\d$/.test(code);
+
+/**
+ * @name isValidIcd10
+ * @description checks if icd10 follows format (LDD)
+ * @param {code} code
+ * @return boolean
+ */
+export const isValidIcd10 = (code) => /^[a-zA-Z]\d\d$/.test(code);
+
+/**
+ * @name hasOnlyWhiteSpace
+ * @description checks if string has only whitespace
+ * @param {string} field
+ * @return boolean
+ */
+export const hasOnlyWhiteSpace = (field) => /^[ \t\r\n]*$/.test(field);

@@ -7,7 +7,9 @@ import Input from '../../input/Input';
 import Modal from '../../modal/Modal';
 import Spinner from '../../spinner/Spinner';
 import {
-  isValidEmail, isValidName, isValidSocial, isValidZipcode, isValidNumber, isValidDate
+  isValidEmail, isValidName, isValidSocial, isValidZipcode,
+  isValidNumber, isValidDate, isValidPrice, isValidVisitCode,
+  isValidBillingCode, isValidIcd10, hasOnlyWhiteSpace
 } from '../../../utils/validation';
 import HttpHelper from '../../../utils/HttpHelper';
 import Dropdown from '../../dropdown/Dropdown';
@@ -121,18 +123,37 @@ const EncounterForm = () => {
     };
     let invalidForm = false;
 
-    if (!isValidName(encounter.provider)) {
+    if (!isValidVisitCode(encounter.visitCode)) {
+      errors.visitCode = true;
+      invalidForm = true;
+    }
+    if (encounter.provider === '' || hasOnlyWhiteSpace(encounter.provider)) {
       errors.provider = true;
       invalidForm = true;
     }
 
-    if (!isValidNumber(encounter.copay) || encounter.copay === '') {
+    if (!isValidBillingCode(encounter.billingCode)) {
+      errors.billingCode = true;
+      invalidForm = true;
+    }
+
+    if (!isValidIcd10(encounter.icd10)) {
+      errors.icd10 = true;
+      invalidForm = true;
+    }
+
+    if (!isValidPrice(encounter.copay)) {
       errors.copay = true;
       invalidForm = true;
     }
 
-    if (!isValidNumber(encounter.totalCost) || encounter.totalCost === '') {
+    if (!isValidPrice(encounter.totalCost)) {
       errors.totalCost = true;
+      invalidForm = true;
+    }
+
+    if (hasOnlyWhiteSpace(encounter.chiefComplaint) || encounter.chiefComplaint === '') {
+      errors.chiefComplaint = true;
       invalidForm = true;
     }
 
@@ -147,7 +168,7 @@ const EncounterForm = () => {
     }
 
     if (!isValidNumber(encounter.diastolic)) {
-      errors.systolic = true;
+      errors.diastolic = true;
       invalidForm = true;
     }
 
@@ -213,7 +234,7 @@ const EncounterForm = () => {
           label="Visit Code"
           type="text"
           error={inputErrors.visitCode}
-          message="Last Name required"
+          message="Visit Code required in format LDL DLD"
           value={encounter.visitCode}
           onChange={(event) => handleChange(event, 'visitCode')}
         />
@@ -229,7 +250,7 @@ const EncounterForm = () => {
           label="Billing Code"
           type="text"
           error={inputErrors.billingCode}
-          message="Valid email required"
+          message="Billing code required in format 123.123.123-12"
           value={encounter.billingCode}
           onChange={(event) => handleChange(event, 'billingCode')}
         />
@@ -237,7 +258,7 @@ const EncounterForm = () => {
           label="icd10"
           type="text"
           error={inputErrors.icd10}
-          message="Field is required, digits only"
+          message="Field is required in format LDD"
           value={encounter.icd10}
           onChange={(event) => handleChange(event, 'icd10')}
         />

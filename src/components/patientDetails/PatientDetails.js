@@ -66,7 +66,6 @@ const PatientDetails = () => {
           setLoading(false);
           setPatientInfo(patientData);
           setEncounters(encounterData);
-          console.log(encounterData);
         })
         .catch((error) => {
           if (error.message === 'AbortError') return;
@@ -77,14 +76,16 @@ const PatientDetails = () => {
     }
   }, [params.id, history]);
 
+  // eslint-disable-next-line consistent-return
   const handleDelete = (id) => {
-    setLoading(true);
-    HttpHelper(`/patients/${id}`, 'DELETE')
-      .then((response) => {
+    if (encounters.length === 0) {
+      setLoading(true);
+      HttpHelper(`/patients/${id}`, 'DELETE')
+        .then((response) => {
         // if delete was not successful 204, throw error to move into catch block
-        if (!response.ok) {
-          throw new Error('Something went wrong');
-        }
+          if (!response.ok) {
+            throw new Error('Something went wrong');
+          }
         // // find item to delete in reservations list
         // // eslint-disable-next-line no-shadow
         // const deletedIndex = patientInfo.findIndex((patientInfo) => patientInfo.id === id);
@@ -93,12 +94,13 @@ const PatientDetails = () => {
         // newPatients.splice(deletedIndex, 1);
         // setLoading(false);
         // setPatientInfo(newPatients);
-      })
-      .catch(() => {
-        setLoading(false);
-        setApiError(true);
-      });
-    history.push('/patients');
+        })
+        .catch(() => {
+          setLoading(false);
+          setApiError(true);
+        });
+      history.push('/patients');
+    }
   };
 
   /**
@@ -131,7 +133,7 @@ const PatientDetails = () => {
             {encounter.date}
           </p>
           <div className={style.Container}>
-            <Button color="Primary" type="button" onClick={() => setEncounterModal(true)}>view details</Button>
+            <Button color="Primary" type="button" onClick={() => setEncounterModal(true)}>View Details</Button>
             {encounterModal
             && (
             <EncounterModal
