@@ -27,7 +27,7 @@ const Dropdown = ({
       onChange={onChange}
     >
       <option value="" disabled hidden>Select</option>
-      {options.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}
+      {options.map((option) => <option key={option} value={option}>{option}</option>)}
     </select>
 
     <p className={style.ErrMsg}>{error && message}</p>
