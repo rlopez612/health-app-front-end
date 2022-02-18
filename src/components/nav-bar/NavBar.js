@@ -24,7 +24,7 @@ const NavBar = () => {
         <span className={`${style.bar} ${style.bottom}`} />
       </div>
       <div className={open ? `${style.linkContainer} ${style.close}` : style.linkContainer}>
-        <NavLink to="/patients" className={style.Link} activeClassName={style.Active}>
+        <NavLink to="/" className={style.Link} activeClassName={style.Active}>
           All Patients
         </NavLink>
       </div>
