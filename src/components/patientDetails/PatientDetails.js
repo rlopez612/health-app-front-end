@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import style from './Reservations.module.css';
 import Button from '../button/Button';
@@ -210,7 +210,7 @@ const PatientDetails = () => {
       <div className={style.container}>
         <div className={style.Header}>
           <h1 className={style.headingMargin}>Encounters</h1>
-          <Link to="/patients/create"><Button color="Primary" type="button">Add New Encounter</Button></Link>
+          <Link to={`/patients/${patientInfo.id}/encounters`}><Button color="Primary" type="button">Add New Encounter</Button></Link>
         </div>
         {loading && <Spinner />}
         {apiError && <Modal message="Oops something went wrong" reset={() => setApiError(false)} />}

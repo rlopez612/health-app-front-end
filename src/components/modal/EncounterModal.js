@@ -61,7 +61,7 @@ const EncounterModal = ({ encounter, reset }) => (
         {encounter.notes}
       </p>
       <Button color="Primary" type="button" onClick={reset}>OK</Button>
-      <Link className={style.Link} to={`/patients/edit/${encounter.id}`}><Button color="Primary" type="button">Edit</Button></Link>
+      <Link className={style.Link} to={`/patients/${encounter.patientId}/encounters/${encounter.id}`}><Button color="Primary" type="button">Edit</Button></Link>
     </div>
   </div>
 );

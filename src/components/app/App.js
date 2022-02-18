@@ -7,11 +7,11 @@ import Login from '../login/Login';
 import Reservations from '../reservations/Reservations';
 import Reservation from '../reservation/Reservation';
 import RoomTypes from '../room-types/RoomTypes';
-import RoomType from '../room-type/RoomType';
 import NotFound from '../not-found/NotFound';
 import Patients from '../patients/Patients';
 import Patient from '../patients/patient/PatientForm';
 import PatientDetails from '../patientDetails/PatientDetails';
+import EncounterForm from '../patients/patient/EncounterForm';
 
 /**
  * @name App
@@ -63,15 +63,15 @@ const App = () => {
         />
         <Route
           exact
-          path="/room-types/create"
+          path="/patients/:patientId/encounters"
           loggedIn={user}
-          render={() => <RoomType user={user} />}
+          render={() => <EncounterForm />}
         />
         <Route
           exact
-          path="/room-types/edit/:id"
+          path="/patients/:patientId/encounters/:encounterId"
           loggedIn={user}
-          render={() => <RoomType user={user} />}
+          render={() => <EncounterForm />}
         />
         <Route
           exact
