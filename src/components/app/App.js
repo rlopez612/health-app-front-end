@@ -10,7 +10,7 @@ import RoomTypes from '../room-types/RoomTypes';
 import RoomType from '../room-type/RoomType';
 import NotFound from '../not-found/NotFound';
 import Patients from '../patients/Patients';
-import Patient from '../patients/patient/Patient';
+import Patient from '../patients/patient/PatientForm';
 import PatientDetails from '../patientDetails/PatientDetails';
 
 /**
