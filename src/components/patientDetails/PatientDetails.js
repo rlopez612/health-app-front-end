@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import style from './Reservations.module.css';
 import Button from '../button/Button';
@@ -10,9 +8,10 @@ import Card from '../card/Card';
 import Spinner from '../spinner/Spinner';
 import HttpHelper from '../../utils/HttpHelper';
 import EncounterModal from '../modal/EncounterModal';
+
 /**
-* @name createReservationDisplays
-* @description creates card displays for each reservation object
+* @name PatientDetails
+* @description creates patient detail page for a specific patient
 * @return component[]
 */
 const PatientDetails = () => {
@@ -47,6 +46,7 @@ const PatientDetails = () => {
   useEffect(() => {
     if (params.id) {
       setLoading(true);
+      // get specific patient info and encounters belonging to that patient
       Promise.all([HttpHelper(`/patients/${params.id}`, 'GET'), HttpHelper(`/patients/${params.id}/encounters`, 'GET')])
         .then(([patientResponse, encounterResponse]) => {
           if (patientResponse.ok && encounterResponse.ok) {
@@ -76,8 +76,8 @@ const PatientDetails = () => {
     }
   }, [params.id, history]);
 
-  // eslint-disable-next-line consistent-return
   const handleDelete = (id) => {
+    // only send delete request if patient has no encounters
     if (encounters.length === 0) {
       setLoading(true);
       HttpHelper(`/patients/${id}`, 'DELETE')
@@ -111,9 +111,8 @@ const PatientDetails = () => {
   const createEncounterDisplays = () => {
     let encounterDisplays = [];
 
-    // only if we have room and reservation data to work with
+    // create displays only if encounters exist
     if (encounters.length > 0) {
-      // map over each reservation to create a display card
       encounterDisplays = encounters.map((encounter) => (
         <Card key={encounter.id}>
           <p className={style.Text}>
