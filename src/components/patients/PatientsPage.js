@@ -8,11 +8,11 @@ import Spinner from '../spinner/Spinner';
 import HttpHelper from '../../utils/HttpHelper';
 
 /**
- * @name Patients
+ * @name PatientsPage
  * @description patients page
  * @return component
  */
-const Patients = () => {
+const PatientsPage = () => {
   // reservation and room-types state
   const [patients, setPatients] = useState([]);
   //   const [rooms, setRooms] = useState([]);
@@ -104,4 +104,4 @@ const Patients = () => {
   );
 };
 
-export default Patients;
+export default PatientsPage;

@@ -12,12 +12,12 @@ import HttpHelper from '../../../utils/HttpHelper';
 import Dropdown from '../../dropdown/Dropdown';
 
 /**
- * @name
- * @description
+ * @name PatientForm
+ * @description form for creating/editing a patient
  * @param {*} props
  * @return
  */
-const Patient = () => {
+const PatientForm = () => {
   // Hooks to work with URL
   const history = useHistory();
   const params = useParams();
@@ -373,4 +373,4 @@ const Patient = () => {
   );
 };
 
-export default Patient;
+export default PatientForm;

@@ -1,87 +1,56 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import {
   BrowserRouter, Route, Switch
 } from 'react-router-dom';
 import NavBar from '../nav-bar/NavBar';
-import Login from '../login/Login';
-import Reservations from '../reservations/Reservations';
-import Reservation from '../reservation/Reservation';
-import RoomTypes from '../room-types/RoomTypes';
 import NotFound from '../not-found/NotFound';
-import Patients from '../patients/Patients';
-import Patient from '../patients/patient/PatientForm';
+import PatientsPage from '../patients/PatientsPage';
 import PatientDetails from '../patientDetails/PatientDetails';
 import EncounterForm from '../patients/patient/EncounterForm';
+import PatientForm from '../patients/patient/PatientForm';
 
 /**
  * @name App
  * @returns component
  */
-const App = () => {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+const App = () => (
+  <BrowserRouter>
+    <NavBar />
 
-  return (
-    <BrowserRouter>
-      <NavBar user={user} />
-
-      <Switch>
-        <Route exact path="/" render={() => <Login setUser={setUser} />} />
-        <Route
-          exact
-          path="/reservations"
-          loggedIn={user}
-          render={() => <Reservations />}
-        />
-        <Route
-          exact
-          path="/patients"
-          loggedIn={user}
-          render={() => <Patients />}
-        />
-        <Route
-          exact
-          path="/reservations/create"
-          loggedIn={user}
-          render={() => <Reservation user={user} />}
-        />
-        <Route
-          exact
-          path="/patients/create"
-          render={() => <Patient />}
-        />
-        <Route
-          exact
-          path="/patients/edit/:id"
-          loggedIn={user}
-          render={() => <Patient user={user} />}
-        />
-        <Route
-          exact
-          path="/room-types"
-          loggedIn={user}
-          render={() => <RoomTypes />}
-        />
-        <Route
-          exact
-          path="/patients/:patientId/encounters"
-          loggedIn={user}
-          render={() => <EncounterForm />}
-        />
-        <Route
-          exact
-          path="/patients/:patientId/encounters/:encounterId"
-          loggedIn={user}
-          render={() => <EncounterForm />}
-        />
-        <Route
-          exact
-          path="/patients/:id"
-          loggedIn={user}
-          render={() => <PatientDetails />}
-        />
-        <Route path="*" component={NotFound} />
-      </Switch>
-    </BrowserRouter>
-  );
-};
+    <Switch>
+      <Route
+        exact
+        path="/"
+        render={() => <PatientsPage />}
+      />
+      <Route
+        exact
+        path="/patients/create"
+        render={() => <PatientForm />}
+      />
+      <Route
+        exact
+        path="/patients/edit/:id"
+        render={() => <PatientForm />}
+      />
+      <Route
+        exact
+        path="/patients/:patientId/encounters"
+        render={() => <EncounterForm />}
+      />
+      <Route
+        exact
+        path="/patients/:patientId/encounters/:encounterId"
+        render={() => <EncounterForm />}
+      />
+      <Route
+        exact
+        path="/patients/:id"
+        render={() => <PatientDetails />}
+      />
+      <Route path="*" component={NotFound} />
+    </Switch>
+  </BrowserRouter>
+);
 export default App;
