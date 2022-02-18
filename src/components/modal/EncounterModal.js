@@ -4,9 +4,9 @@ import style from './EncounterModal.module.css';
 import Button from '../button/Button';
 
 /**
- * @name Modal
- * @description styling component to display error messages in modal
- * @param {*} props message, reset
+ * @name EncounterModal
+ * @description styling component to display patient encounter details
+ * @param {*} props encounter, reset
  * @return component
  */
 const EncounterModal = ({ encounter, reset }) => (
