@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import Form from '../../form/Form';
@@ -7,12 +5,10 @@ import Input from '../../input/Input';
 import Modal from '../../modal/Modal';
 import Spinner from '../../spinner/Spinner';
 import {
-  isValidEmail, isValidName, isValidSocial, isValidZipcode,
   isValidNumber, isValidDate, isValidPrice, isValidVisitCode,
   isValidBillingCode, isValidIcd10, hasOnlyWhiteSpace
 } from '../../../utils/validation';
 import HttpHelper from '../../../utils/HttpHelper';
-import Dropdown from '../../dropdown/Dropdown';
 
 /**
  * @name
@@ -25,13 +21,13 @@ const EncounterForm = () => {
   const history = useHistory();
   const params = useParams('/patients/:patientId/encounters/:encounterId');
 
-  const { patientId, encounterId } = params;
+  const { patientId } = params;
 
   // state for api errors and loading
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
 
-  // state for patient fields
+  // state for encounter
   const [encounter, setEncounter] = useState({
     id: '',
     patientId: '',
@@ -77,6 +73,7 @@ const EncounterForm = () => {
           // redirect to trigger NotFound page is server returns 404
           if (encounterRes.status === 404) {
             setLoading(false);
+            // redirect to patient details page
             history.push(`/patients/${params.patientId}`);
             throw new Error('AbortError');
           }
@@ -186,7 +183,7 @@ const EncounterForm = () => {
         .then((response) => {
           setLoading(false);
           if (response.ok) {
-            // on success, redirect to reservations page
+            // on success, redirect to patient's detail page
             history.push(`/patients/${patientId}`);
           } else {
             // throw error to move into catch block
@@ -226,7 +223,7 @@ const EncounterForm = () => {
           label="Notes"
           type="text"
           error={inputErrors.notes}
-          message="First Name required"
+          message="Field is optional"
           value={encounter.notes}
           onChange={(event) => handleChange(event, 'notes')}
         />
