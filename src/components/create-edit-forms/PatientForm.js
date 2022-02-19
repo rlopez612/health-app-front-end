@@ -79,11 +79,11 @@ const PatientForm = () => {
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
-      [HttpHelper(`/patients/${params.id}`, 'GET')
+      HttpHelper(`/patients/${params.id}`, 'GET')
         .then((patientRes) => {
           if (patientRes.ok) {
             // once both api calls have resolved successfully check if both are 2xx responses
-            return Promise.all([patientRes.json()]);
+            return patientRes.json();
           }
           // redirect to trigger NotFound page is server returns 404
           if (patientRes.status === 404) {

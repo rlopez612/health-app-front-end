@@ -11,10 +11,10 @@ import {
 import HttpHelper from '../../utils/HttpHelper';
 
 /**
- * @name
+ * @name EncounterForm
  * @description
  * @param {*} props
- * @return
+ * @return Form to create/edit Encounters
  */
 const EncounterForm = () => {
   // Hooks to work with URL

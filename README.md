@@ -7,11 +7,5 @@ Proof of concept for Super Health Inc. This application helps manage patients an
 * Run `npm test` to start the testing suite.
 * Run `npm run coverage` to perform tests with coverage.
 
-## Pre-requisties
 
-## Testing
-
-## External Dependencies
-
-## ESLint
 
