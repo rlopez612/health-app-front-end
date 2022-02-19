@@ -79,10 +79,8 @@ const PatientForm = () => {
     // if there is an id in the URL, we are in edit mode
     if (params.id) {
       setLoading(true);
-      // we need both the room-types and reservations so we can map the room-types names
-      // with the reservations roomTypeId for display purposes
-      Promise.all([HttpHelper(`/patients/${params.id}`, 'GET')])
-        .then(([patientRes]) => {
+      [HttpHelper(`/patients/${params.id}`, 'GET')
+        .then((patientRes) => {
           if (patientRes.ok) {
             // once both api calls have resolved successfully check if both are 2xx responses
             return Promise.all([patientRes.json()]);
@@ -96,8 +94,7 @@ const PatientForm = () => {
           // if either response is not a 2xx or 404, throw error to move into catch block
           throw new Error('Something went wrong');
         })
-        .then(([patientData]) => {
-          // set data for room-types and reservations
+        .then((patientData) => {
           setLoading(false);
           setPatient(patientData);
         })
@@ -209,7 +206,6 @@ const PatientForm = () => {
         .then((response) => {
           setLoading(false);
           if (response.ok) {
-            // on success, redirect to reservations page
             history.push('/');
           } else {
             // throw error to move into catch block

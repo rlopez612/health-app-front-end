@@ -311,7 +311,7 @@ const EncounterForm = () => {
           label="Date"
           type="text"
           error={inputErrors.date}
-          message="Valid date required in format YYYY-MM-DD"
+          message="Valid date must be in past or present, required in format YYYY-MM-DD"
           value={encounter.date}
           onChange={(event) => handleChange(event, 'date')}
         />

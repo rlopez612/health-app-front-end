@@ -47,8 +47,8 @@ const PatientsPage = () => {
  */
 
   /**
-* @name createReservationDisplays
-* @description creates card displays for each reservation object
+* @name createPatientDisplays
+* @description creates card displays for each patient
 * @return component[]
 */
   const createPatientDisplays = () => {
