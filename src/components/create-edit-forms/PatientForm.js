@@ -210,7 +210,7 @@ const PatientForm = () => {
           setLoading(false);
           if (response.ok) {
             // on success, redirect to reservations page
-            history.push('/patients');
+            history.push('/');
           } else {
             // throw error to move into catch block
             throw new Error('oops something went wrong');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import style from './Reservations.module.css';
+import style from './Patient-details.module.css';
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
 import Card from '../card/Card';
@@ -21,7 +21,7 @@ const PatientDetails = () => {
   const [apiError, setApiError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [encounterModal, setEncounterModal] = useState(false);
-
+  const [message, setMessage] = useState('');
   const [patientInfo, setPatientInfo] = useState({
     id: '',
     firstName: '',
@@ -79,27 +79,23 @@ const PatientDetails = () => {
   const handleDelete = (id) => {
     // only send delete request if patient has no encounters
     if (encounters.length === 0) {
+      setMessage('');
       setLoading(true);
       HttpHelper(`/patients/${id}`, 'DELETE')
         .then((response) => {
         // if delete was not successful 204, throw error to move into catch block
           if (!response.ok) {
+            setMessage('Something went wrong');
             throw new Error('Something went wrong');
           }
-        // // find item to delete in reservations list
-        // // eslint-disable-next-line no-shadow
-        // const deletedIndex = patientInfo.findIndex((patientInfo) => patientInfo.id === id);
-        // const newPatients = [...patientInfo];
-        // // create copy of reservations array and remove the deleted one
-        // newPatients.splice(deletedIndex, 1);
-        // setLoading(false);
-        // setPatientInfo(newPatients);
+          history.push('/');
         })
         .catch(() => {
           setLoading(false);
           setApiError(true);
         });
-      history.push('/patients');
+    } else {
+      setMessage("Patient's with encounters cannot be deleted!");
     }
   };
 
@@ -207,6 +203,7 @@ const PatientDetails = () => {
           <Link className={style.Link} to={`/patients/edit/${patientInfo.id}`}><Button color="Primary" type="button">Edit</Button></Link>
           <Button color="Warn" type="button" onClick={() => handleDelete(patientInfo.id)}>Delete</Button>
         </div>
+        {message !== '' && <p className={style.errorMessage}>{message}</p>}
       </Card>
       <div className={style.container}>
         <div className={style.Header}>

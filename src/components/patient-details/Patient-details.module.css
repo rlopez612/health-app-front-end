@@ -24,3 +24,8 @@
 .headingMargin {
   margin-right: 1rem;
 }
+.errorMessage {
+  text-align:justify;
+  font-size:x-large;
+  font-weight: bold;
+}
