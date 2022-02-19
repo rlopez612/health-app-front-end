@@ -5,7 +5,7 @@ import style from './NavBar.module.css';
 /**
  * @name NavBar
  * @description selectively show links for pages
- * @param {*} props user
+
  * @return component
  */
 const NavBar = () => {

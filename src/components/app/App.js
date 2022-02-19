@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter, Route, Switch
 } from 'react-router-dom';
